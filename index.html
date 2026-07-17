@@ -1,0 +1,2089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+Cyber Bio Forensic System v2.1
+</title>
+
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+
+<script>
+
+tailwind.config = {
+
+theme: {
+
+extend: {
+
+colors: {
+
+darkBg:"#050b14",
+panelBg:"#0d192d",
+
+accentBlue:"#3b82f6",
+accentGreen:"#10b981",
+accentPurple:"#8b5cf6",
+accentRed:"#ef4444",
+
+textMuted:"#64748b"
+
+}
+
+}
+
+}
+
+}
+
+</script>
+
+
+
+<!-- Font Awesome -->
+<link 
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+
+<style>
+
+
+body {
+
+background:#050b14;
+font-family:
+ui-sans-serif,
+system-ui,
+Segoe UI,
+Roboto,
+Arial;
+
+}
+
+
+/* forensic scrollbar */
+
+.custom-scrollbar::-webkit-scrollbar {
+
+width:6px;
+
+}
+
+
+.custom-scrollbar::-webkit-scrollbar-track {
+
+background:#09101d;
+
+}
+
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+
+background:#1e293b;
+border-radius:5px;
+
+}
+
+
+
+/* integrity circle */
+
+.radial-progress {
+
+position:relative;
+
+width:140px;
+height:140px;
+
+border-radius:50%;
+
+background:
+conic-gradient(
+#10b981 360deg,
+#112240 0deg
+);
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+box-shadow:
+0 0 20px rgba(16,185,129,.25);
+
+}
+
+
+.radial-progress::before {
+
+content:"";
+
+position:absolute;
+
+width:118px;
+height:118px;
+
+background:#0d192d;
+
+border-radius:50%;
+
+}
+
+
+</style>
+
+
+</head>
+
+
+<body 
+class="
+text-slate-200
+min-h-screen
+flex
+flex-col
+overflow-hidden
+">
+
+
+
+<!-- ================= HEADER ================= -->
+
+
+<header 
+class="
+bg-panelBg
+border-b
+border-slate-800
+px-6
+py-3
+flex
+justify-between
+items-center
+text-xs
+">
+
+
+
+
+<div class="flex items-center gap-3">
+
+
+<div 
+class="
+text-accentBlue
+font-bold
+tracking-widest
+text-sm
+">
+
+
+<i class="fa-solid fa-dna text-accentGreen"></i>
+
+CYBER BIO FORENSIC SYSTEM
+
+
+</div>
+
+
+<span class="text-slate-600">
+|
+</span>
+
+
+<span class="text-textMuted">
+
+DIGITAL EVIDENCE MANAGEMENT
+&
+CASE ANALYSIS
+
+</span>
+
+
+
+</div>
+
+
+
+
+<div class="flex items-center gap-8">
+
+
+<div>
+
+<i class="
+fa-solid
+fa-circle-check
+text-accentGreen
+animate-pulse
+">
+</i>
+
+SYSTEM:
+
+<span class="text-accentGreen font-bold">
+ONLINE
+</span>
+
+</div>
+
+
+
+<div>
+
+<i class="
+fa-solid
+fa-shield-halved
+text-accentBlue
+">
+</i>
+
+
+CASE:
+
+<span class="text-accentBlue font-bold">
+ACTIVE
+</span>
+
+
+</div>
+
+
+
+<div class="text-right">
+
+<div id="clock"
+class="font-mono text-slate-300">
+
+Loading...
+
+</div>
+
+
+<div class="text-[10px] text-slate-500">
+
+LOCAL FORENSIC TIME
+
+</div>
+
+
+</div>
+
+
+
+<div 
+class="
+border-l
+border-slate-700
+pl-5
+flex
+items-center
+gap-3
+">
+
+
+<i class="
+fa-solid
+fa-user-shield
+text-lg
+">
+</i>
+
+
+<div>
+
+
+<div class="font-bold">
+
+JOSÉ SANTANA
+
+</div>
+
+
+<div 
+class="
+text-[10px]
+text-textMuted
+uppercase
+">
+
+INVESTIGATOR
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</header>
+
+
+
+
+
+<!-- ================= MAIN AREA ================= -->
+
+
+<div 
+class="
+flex
+flex-1
+overflow-hidden
+">
+
+
+
+
+
+<!-- ================= SIDEBAR ================= -->
+
+
+
+<aside
+class="
+w-64
+bg-panelBg
+border-r
+border-slate-800
+flex
+flex-col
+justify-between
+custom-scrollbar
+overflow-y-auto
+">
+
+
+
+
+
+<div>
+
+
+<div 
+class="
+px-4
+py-4
+text-[10px]
+uppercase
+tracking-widest
+text-slate-500
+font-bold
+">
+
+FORENSIC MODULES
+
+</div>
+
+
+
+
+<nav 
+class="
+space-y-1
+">
+
+
+
+<a class="
+block
+px-4
+py-3
+bg-accentBlue/10
+border-l-2
+border-accentBlue
+text-accentBlue
+">
+
+<i class="
+fa-solid
+fa-chart-line
+w-5
+">
+</i>
+
+Dashboard
+
+</a>
+
+
+
+
+<a class="
+block
+px-4
+py-3
+hover:bg-slate-800
+">
+
+<i class="fa-solid fa-folder-open w-5"></i>
+
+Case Management
+
+</a>
+
+
+
+
+<a class="
+block
+px-4
+py-3
+hover:bg-slate-800
+">
+
+<i class="fa-solid fa-box-archive w-5"></i>
+
+Evidence Locker
+
+</a>
+
+
+
+
+<a class="
+block
+px-4
+py-3
+hover:bg-slate-800
+">
+
+<i class="fa-solid fa-link w-5"></i>
+
+Chain of Custody
+
+</a>
+
+
+
+
+<a class="
+block
+px-4
+py-3
+hover:bg-slate-800
+">
+
+<i class="fa-solid fa-network-wired w-5"></i>
+
+Network Events
+
+</a>
+
+
+
+
+
+<a class="
+block
+px-4
+py-3
+hover:bg-slate-800
+">
+
+<i class="fa-solid fa-laptop w-5"></i>
+
+Device Inventory
+
+</a>
+
+
+
+
+<a class="
+block
+px-4
+py-3
+hover:bg-slate-800
+">
+
+<i class="fa-solid fa-file-shield w-5"></i>
+
+Hash Verification
+
+</a>
+
+
+
+
+<a class="
+block
+px-4
+py-3
+hover:bg-slate-800
+">
+
+<i class="fa-solid fa-gavel w-5"></i>
+
+Court Export
+
+</a>
+
+
+
+</nav>
+
+
+</div>
+
+
+
+
+
+
+<!-- CASE PANEL -->
+
+
+<div 
+class="
+p-4
+border-t
+border-slate-800
+bg-darkBg
+text-xs
+">
+
+
+<div class="
+text-[10px]
+text-slate-500
+tracking-widest
+uppercase
+mb-3
+">
+
+CURRENT CASE
+
+</div>
+
+
+
+
+<div class="space-y-2">
+
+
+<div class="flex justify-between">
+
+<span class="text-slate-500">
+
+CASE ID
+
+</span>
+
+
+<span class="font-mono">
+
+2026-00154
+
+</span>
+
+
+</div>
+
+
+
+
+<div>
+
+<span class="text-slate-500">
+
+TITLE
+
+</span>
+
+<div>
+
+Housing Harassment
+&
+Cyber Investigation
+
+</div>
+
+
+</div>
+
+
+
+
+<div class="flex justify-between">
+
+
+<span class="text-slate-500">
+
+STATUS
+
+</span>
+
+
+<span class="text-accentBlue">
+
+ACTIVE
+
+</span>
+
+
+</div>
+
+
+
+
+<div class="flex justify-between">
+
+<span class="text-slate-500">
+
+EVIDENCE
+
+</span>
+
+
+<span>
+
+245 ITEMS
+
+</span>
+
+
+</div>
+
+
+
+
+<div class="flex justify-between">
+
+<span class="text-slate-500">
+
+HASH
+
+</span>
+
+
+<span class="text-accentGreen">
+
+VERIFIED
+
+</span>
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+</aside>
+
+
+
+
+<!-- MAIN CONTENT STARTS PART 2 -->
+
+<main 
+class="
+flex-1
+bg-darkBg
+p-6
+overflow-y-auto
+custom-scrollbar
+">
+
+<!-- ================= TOP STATISTICS ================= -->
+
+
+<div class="grid grid-cols-6 gap-4 mb-6">
+
+
+
+<div class="bg-panelBg border border-slate-800 rounded p-4">
+
+<div class="text-[10px] uppercase text-slate-500">
+Evidence Items
+</div>
+
+<div class="text-3xl font-bold mt-2">
+245
+</div>
+
+<div class="text-[10px] text-accentGreen">
+COLLECTED
+</div>
+
+</div>
+
+
+
+
+<div class="bg-panelBg border border-slate-800 rounded p-4">
+
+<div class="text-[10px] uppercase text-slate-500">
+Documents
+</div>
+
+<div class="text-3xl font-bold mt-2">
+38
+</div>
+
+<div class="text-[10px] text-slate-400">
+FILES
+</div>
+
+</div>
+
+
+
+
+<div class="bg-panelBg border border-slate-800 rounded p-4">
+
+<div class="text-[10px] uppercase text-slate-500">
+Logs
+</div>
+
+<div class="text-3xl font-bold mt-2">
+15432
+</div>
+
+<div class="text-[10px] text-purple-400">
+EVENT RECORDS
+</div>
+
+</div>
+
+
+
+
+<div class="bg-panelBg border border-slate-800 rounded p-4">
+
+<div class="text-[10px] uppercase text-slate-500">
+Screenshots
+</div>
+
+<div class="text-3xl font-bold mt-2">
+87
+</div>
+
+<div class="text-[10px]">
+CAPTURES
+</div>
+
+</div>
+
+
+
+
+<div class="bg-panelBg border border-slate-800 rounded p-4">
+
+<div class="text-[10px] uppercase text-slate-500">
+Hash Verified
+</div>
+
+<div class="text-3xl font-bold text-accentGreen mt-2">
+245
+</div>
+
+<div class="text-[10px] text-accentGreen">
+SHA-256 PASS
+</div>
+
+</div>
+
+
+
+
+<div class="bg-panelBg border border-slate-800 rounded p-4">
+
+<div class="text-[10px] uppercase text-slate-500">
+Chain Records
+</div>
+
+<div class="text-3xl font-bold mt-2">
+67
+</div>
+
+<div class="text-[10px]">
+AUDIT EVENTS
+</div>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- ================= MAIN FORENSIC GRID ================= -->
+
+
+<div class="grid grid-cols-12 gap-6">
+
+
+
+
+
+<!-- CASE OVERVIEW -->
+
+<div 
+class="
+col-span-3
+bg-panelBg
+border
+border-slate-800
+rounded
+p-4
+">
+
+
+<h2 class="
+text-xs
+uppercase
+tracking-widest
+border-b
+border-slate-800
+pb-2
+">
+
+Case Overview
+
+</h2>
+
+
+
+<p class="
+text-xs
+text-slate-400
+mt-4
+leading-relaxed
+">
+
+
+Digital evidence collection system tracking
+network events, device activity,
+documents, screenshots, and forensic artifacts.
+
+
+</p>
+
+
+
+<div class="
+mt-5
+space-y-2
+text-xs
+">
+
+
+<div class="flex justify-between">
+
+<span class="text-slate-500">
+CASE
+</span>
+
+<span>
+2026-00154
+</span>
+
+</div>
+
+
+<div class="flex justify-between">
+
+<span class="text-slate-500">
+PRIORITY
+</span>
+
+<span class="text-red-400">
+HIGH
+</span>
+
+</div>
+
+
+<div class="flex justify-between">
+
+<span class="text-slate-500">
+HASH ENGINE
+</span>
+
+<span class="text-green-400">
+SHA-256
+</span>
+
+</div>
+
+
+
+<div class="flex justify-between">
+
+<span class="text-slate-500">
+STATUS
+</span>
+
+<span class="text-blue-400">
+ACTIVE
+</span>
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- EVIDENCE TABLE -->
+
+
+<div
+class="
+col-span-5
+bg-panelBg
+border
+border-slate-800
+rounded
+p-4
+">
+
+
+<h2 class="
+text-xs
+uppercase
+tracking-widest
+border-b
+border-slate-800
+pb-2
+">
+
+Recent Evidence
+
+</h2>
+
+
+
+<div class="overflow-x-auto mt-3">
+
+
+<table class="
+w-full
+text-xs
+">
+
+
+<thead>
+
+<tr class="text-slate-500 border-b border-slate-800">
+
+<th class="text-left py-2">
+ID
+</th>
+
+<th>
+TYPE
+</th>
+
+<th>
+DESCRIPTION
+</th>
+
+<th>
+HASH
+</th>
+
+
+</tr>
+
+</thead>
+
+
+
+
+<tbody>
+
+
+<tr class="border-b border-slate-800">
+
+<td class="py-3 font-mono">
+EV-245
+</td>
+
+
+<td>
+Screenshot
+</td>
+
+
+<td>
+Network Activity Capture
+</td>
+
+
+<td class="text-green-400">
+<i class="fa-solid fa-check"></i>
+</td>
+
+
+</tr>
+
+
+
+<tr class="border-b border-slate-800">
+
+
+<td class="py-3 font-mono">
+EV-244
+</td>
+
+
+<td>
+Log
+</td>
+
+
+<td>
+Windows Event Export
+</td>
+
+
+<td class="text-green-400">
+<i class="fa-solid fa-check"></i>
+</td>
+
+
+</tr>
+
+
+
+
+<tr class="border-b border-slate-800">
+
+<td class="py-3 font-mono">
+EV-243
+</td>
+
+
+<td>
+Document
+</td>
+
+
+<td>
+Court Filing
+</td>
+
+
+<td class="text-green-400">
+
+<i class="fa-solid fa-check"></i>
+
+</td>
+
+
+</tr>
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+
+<button class="
+mt-4
+w-full
+bg-slate-800
+py-2
+rounded
+text-xs
+">
+
+VIEW ALL EVIDENCE
+
+</button>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- TIMELINE -->
+
+
+<div
+class="
+col-span-4
+bg-panelBg
+border
+border-slate-800
+rounded
+p-4
+">
+
+
+<h2 class="
+text-xs
+uppercase
+tracking-widest
+border-b
+border-slate-800
+pb-2
+">
+
+Timeline Reconstruction
+
+</h2>
+
+
+
+
+<div class="
+mt-5
+border-l
+border-slate-700
+pl-5
+space-y-6
+">
+
+
+<div>
+
+<div class="text-xs text-slate-500">
+10:35 PM
+</div>
+
+
+<div class="font-bold">
+Screenshot Captured
+</div>
+
+
+<div class="text-xs text-slate-500">
+Network event recorded
+</div>
+
+
+</div>
+
+
+
+
+<div>
+
+<div class="text-xs text-slate-500">
+10:31 PM
+</div>
+
+
+<div class="font-bold">
+Security Log Export
+</div>
+
+
+<div class="text-xs text-slate-500">
+Windows event collection
+</div>
+
+
+</div>
+
+
+
+
+
+<div>
+
+<div class="text-xs text-slate-500">
+10:15 PM
+</div>
+
+
+<div class="font-bold">
+Network Alert
+</div>
+
+
+<div class="text-xs text-slate-500">
+Connection anomaly detected
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+<!-- ================= LOWER FORENSIC ROW ================= -->
+
+
+<div class="grid grid-cols-12 gap-6 mt-6">
+
+
+
+
+
+<!-- CHAIN OF CUSTODY -->
+
+
+<div
+class="
+col-span-5
+bg-panelBg
+border
+border-slate-800
+rounded
+p-4
+">
+
+
+<h2 class="
+text-xs
+uppercase
+tracking-widest
+border-b
+border-slate-800
+pb-2
+">
+
+Chain of Custody
+
+</h2>
+
+
+
+<table class="w-full text-xs mt-3">
+
+
+<tr class="text-slate-500">
+
+<th>
+Evidence
+</th>
+
+<th>
+Collector
+</th>
+
+<th>
+Status
+</th>
+
+</tr>
+
+
+
+<tr class="border-t border-slate-800">
+
+<td class="py-3">
+EV-245
+</td>
+
+<td>
+José Santana
+</td>
+
+<td class="text-green-400">
+Verified
+</td>
+
+</tr>
+
+
+
+<tr class="border-t border-slate-800">
+
+<td class="py-3">
+EV-244
+</td>
+
+<td>
+José Santana
+</td>
+
+<td class="text-green-400">
+Verified
+</td>
+
+</tr>
+
+
+
+</table>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- HASH PANEL -->
+
+
+<div
+class="
+col-span-4
+bg-panelBg
+border
+border-slate-800
+rounded
+p-4
+">
+
+
+<h2 class="
+text-xs
+uppercase
+tracking-widest
+border-b
+border-slate-800
+pb-2
+">
+
+Evidence Integrity
+
+</h2>
+
+
+
+<div class="flex justify-center mt-5">
+
+
+<div class="radial-progress">
+
+
+<div class="
+relative
+z-10
+text-center
+">
+
+
+<div class="
+text-3xl
+font-bold
+">
+
+100%
+
+</div>
+
+
+<div class="
+text-green-400
+text-xs
+">
+
+VERIFIED
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<!-- COURT EXPORT -->
+
+
+<div
+class="
+col-span-3
+bg-panelBg
+border
+border-slate-800
+rounded
+p-4
+">
+
+
+<h2 class="
+text-xs
+uppercase
+tracking-widest
+border-b
+border-slate-800
+pb-2
+">
+
+Court Export
+
+</h2>
+
+
+
+<div class="mt-4 space-y-2 text-xs">
+
+
+<button class="
+w-full
+bg-slate-800
+p-2
+rounded
+">
+
+Generate Report
+
+</button>
+
+
+
+<button class="
+w-full
+bg-slate-800
+p-2
+rounded
+">
+
+Export Evidence Package
+
+</button>
+
+
+
+<button class="
+w-full
+bg-slate-800
+p-2
+rounded
+">
+
+Verify Hash Set
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+<!-- ================= SYSTEM STATUS ================= -->
+
+
+<div class="grid grid-cols-12 gap-6 mt-6">
+
+
+
+<div
+class="
+col-span-8
+bg-panelBg
+border
+border-slate-800
+rounded
+p-4
+">
+
+
+<h2 class="
+text-xs
+uppercase
+tracking-widest
+border-b
+border-slate-800
+pb-2
+">
+
+System Status
+
+</h2>
+
+
+
+
+<div class="
+grid
+grid-cols-5
+gap-4
+mt-4
+text-xs
+">
+
+
+
+
+
+<div class="
+bg-darkBg
+border
+border-slate-800
+rounded
+p-3
+">
+
+
+<i class="
+fa-solid
+fa-database
+text-blue-400
+">
+</i>
+
+
+<div class="mt-2 text-slate-500">
+
+DATABASE
+
+</div>
+
+
+<div class="text-green-400 font-bold">
+
+ONLINE
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="
+bg-darkBg
+border
+border-slate-800
+rounded
+p-3
+">
+
+
+<i class="
+fa-solid
+fa-hard-drive
+text-blue-400
+">
+</i>
+
+
+<div class="mt-2 text-slate-500">
+
+STORAGE
+
+</div>
+
+
+<div>
+
+2.4 TB FREE
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="
+bg-darkBg
+border
+border-slate-800
+rounded
+p-3
+">
+
+
+<i class="
+fa-solid
+fa-key
+text-blue-400
+">
+</i>
+
+
+<div class="mt-2 text-slate-500">
+
+HASH ENGINE
+
+</div>
+
+
+<div>
+
+SHA-256
+
+<span class="text-green-400">
+
+ACTIVE
+
+</span>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="
+bg-darkBg
+border
+border-slate-800
+rounded
+p-3
+">
+
+
+<i class="
+fa-solid
+fa-cloud-arrow-up
+text-blue-400
+">
+</i>
+
+
+<div class="mt-2 text-slate-500">
+
+BACKUP
+
+</div>
+
+
+<div>
+
+READY
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="
+bg-darkBg
+border
+border-slate-800
+rounded
+p-3
+">
+
+
+<i class="
+fa-solid
+fa-lock
+text-blue-400
+">
+</i>
+
+
+<div class="mt-2 text-slate-500">
+
+ENCRYPTION
+
+</div>
+
+
+<div class="text-green-400">
+
+AES-256
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- NOTES -->
+
+
+<div
+class="
+col-span-4
+bg-panelBg
+border
+border-slate-800
+rounded
+p-4
+">
+
+
+<h2 class="
+text-xs
+uppercase
+tracking-widest
+border-b
+border-slate-800
+pb-2
+">
+
+Investigator Notes
+
+</h2>
+
+
+
+
+<textarea
+class="
+mt-4
+w-full
+h-28
+bg-darkBg
+border
+border-slate-700
+rounded
+p-3
+text-xs
+text-slate-300
+"
+placeholder="
+Document observations...
+">
+
+
+</textarea>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+</main>
+
+
+
+
+
+<!-- ================= FOOTER ================= -->
+
+
+<footer
+class="
+bg-darkBg
+border-t
+border-slate-900
+px-6
+py-3
+flex
+justify-between
+text-[10px]
+uppercase
+tracking-widest
+text-slate-500
+">
+
+
+<div>
+
+Cyber Bio Forensic System v2.1
+
+</div>
+
+
+
+
+<div>
+
+<i class="
+fa-solid
+fa-lock
+text-green-400
+">
+</i>
+
+
+Evidence Integrity Protected
+
+</div>
+
+
+
+
+<div>
+
+© 2026 Cyber Bio Project
+
+</div>
+
+
+
+</footer>
+
+
+
+
+
+
+
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+
+<script>
+
+
+
+// LIVE FORENSIC CLOCK
+
+
+function updateClock(){
+
+
+const now = new Date();
+
+
+const options = {
+
+year:"numeric",
+month:"short",
+day:"2-digit",
+hour:"2-digit",
+minute:"2-digit",
+second:"2-digit"
+
+};
+
+
+document.getElementById("clock").innerHTML =
+now.toLocaleString(
+"en-US",
+options
+);
+
+
+}
+
+
+
+setInterval(updateClock,1000);
+
+updateClock();
+
+
+
+
+
+
+
+// HASH VERIFICATION SIMULATION
+
+
+function verifyEvidence(){
+
+
+console.log(
+"Running SHA-256 Evidence Verification..."
+);
+
+
+setTimeout(()=>{
+
+
+console.log(
+"Evidence verification complete."
+);
+
+
+},2000);
+
+
+}
+
+
+
+
+
+
+
+// COURT EXPORT PLACEHOLDER
+
+
+function exportCourtPackage(){
+
+
+const report = {
+
+
+system:
+"Cyber Bio Forensic System",
+
+caseID:
+"2026-00154",
+
+timestamp:
+new Date(),
+
+evidenceCount:
+245,
+
+
+integrity:
+"SHA-256 VERIFIED"
+
+
+};
+
+
+
+console.log(
+JSON.stringify(
+report,
+null,
+2
+)
+);
+
+
+
+alert(
+"Court Evidence Package Prepared"
+);
+
+
+
+}
+
+
+
+
+
+
+
+// HTA READY HOOK
+
+
+function htaEnvironment(){
+
+
+if(window.external){
+
+
+console.log(
+"HTA Runtime Detected"
+);
+
+
+}
+
+else{
+
+
+console.log(
+"Browser Runtime"
+);
+
+
+}
+
+
+}
+
+
+
+htaEnvironment();
+
+
+
+</script>
+
+
+
+</body>
+
+</html>

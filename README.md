@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://awakenfury.github.io/Cyber-Bio-Forensic-Evidence-Platform">
-    🌐 Live Demo
+    Cyber Bio Forensic Evidence Platform
   </a>
 </p>
 

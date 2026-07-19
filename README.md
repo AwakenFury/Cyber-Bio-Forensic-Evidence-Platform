@@ -6,11 +6,13 @@
 
 <p align="center">
   <a href="https://awakenfury.github.io/Cyber-Bio-Forensic-Evidence-Platform">
-    Cyber Bio Forensic Evidence Platform
+    🌐 Live Demo
   </a>
 </p>
 
-# Cyber Bio Forensic Evidence Platform
+
+## Project Summary
+Cyber Bio Forensic Evidence Platform
 
 ## Mission
 

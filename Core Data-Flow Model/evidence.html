@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        :root {
+            --bg-main: #02070F; --bg-card: #05101E; --bg-input: #0A1C33;
+            --text-main: #D5E3F5; --text-muted: #5B7594;
+            --accent-blue: #00A2FF; --accent-green: #00E676;
+            --accent-amber: #FFB300; --accent-red: #FF3D00; --border-color: #0F2E54;
+        }
+        body {
+            background-color: var(--bg-main); color: var(--text-main);
+            font-family: 'Segoe UI', sans-serif; font-size: 12px; margin: 20px;
+        }
+        .card { background-color: var(--bg-card); border: 1px solid var(--border-color); padding: 15px; border-radius: 2px; }
+        .heading { font-weight: bold; text-transform: uppercase; font-size: 11px; border-left: 3px solid var(--accent-blue); padding-left: 8px; margin-bottom: 15px; }
+        .triage-item {
+            background-color: var(--bg-main); border: 1px solid var(--border-color);
+            padding: 15px; display: grid; grid-template-columns: 1.5fr 1fr 1.2fr; gap: 20px; align-items: center;
+        }
+        .progress-track { background-color: var(--bg-input); height: 10px; display: flex; border-radius: 2px; overflow: hidden; margin-top: 5px; }
+        .bar-segment { height: 100%; }
+        .btn-group { display: flex; gap: 6px; }
+        .btn {
+            flex: 1; padding: 8px; background: none; border: 1px solid var(--border-color);
+            color: #FFF; font-size: 11px; font-weight: bold; text-transform: uppercase; cursor: pointer;
+        }
+        .btn-keep { border-color: var(--accent-green); color: var(--accent-green); }
+        .btn-isolate { border-color: var(--accent-amber); color: var(--accent-amber); }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="heading">Captive Portal Drop Box Inflow Queue</div>
+        <div class="triage-item">
+            <div>
+                <div style="font-size: 13px; font-weight: bold; color: var(--accent-blue)">leak_archive_2026.zip</div>
+                <div style="font-family: monospace; font-size: 10px; color: var(--text-muted); margin-top: 4px;">SHA-256: e3b0c44298fc1c149afbf4c8...</div>
+                <div style="font-size: 11px; margin-top: 6px;">Profile Verification: <span style="color: var(--accent-green)">BIO-8821-COMPLY [98.2%]</span></div>
+            </div>
+            <div>
+                <div style="display: flex; justify-content: space-between; font-size: 10px; font-weight: bold;">
+                    <span style="color: var(--accent-green)">KEEP: 60%</span>
+                    <span style="color: var(--accent-amber)">ISOLATE: 40%</span>
+                </div>
+                <div class="progress-track">
+                    <div class="bar-segment" style="background-color: var(--accent-green); width: 60%;"></div>
+                    <div class="bar-segment" style="background-color: var(--accent-amber); width: 40%;"></div>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-keep" onclick="executeCommit()">✓ Keep</button>
+                <button class="btn btn-isolate">⚠ Isolate</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+    function executeCommit() {
+        if (parent && parent.CBOS_Core) {
+            const core = parent.CBOS_Core;
+            const newRecord = {
+                id: "EV-" + Math.floor(Math.random() * 900 + 100),
+                timestamp: core.getTimestamp(),
+                filename: "leak_archive_2026.zip",
+                originNode: "SOFTAP-PROV-04",
+                identityVector: "BIO-8821-COMPLY",
+                consensusStatus: "KEEP (COMMIT)",
+                hashSeal: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            };
+            
+            // Broadcast transaction entry data packet down communication pipes
+            if(core.channel) {
+                core.channel.postMessage({ type: 'COMMIT_EVIDENCE_RECORD', payload: newRecord });
+            } else {
+                core.evidencePool.unshift(newRecord);
+            }
+            alert("Evidence signed off and broadcast to Immutable Core Chain Ledger Log.");
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        :root {
+            --bg-main: #02070F; --bg-card: #05101E; --bg-input: #0A1C33;
+            --text-main: #D5E3F5; --text-muted: #5B7594;
+            --accent-blue: #00A2FF; --border-color: #0F2E54;
+        }
+        body {
+            background-color: var(--bg-main); color: var(--text-main);
+            font-family: 'Segoe UI', sans-serif; font-size: 12px; margin: 20px;
+        }
+        .card { background-color: var(--bg-card); border: 1px solid var(--border-color); padding: 15px; border-radius: 2px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        label { text-transform: uppercase; font-size: 10px; color: var(--text-muted); font-weight: bold; }
+        .control { background-color: var(--bg-main); border: 1px solid var(--border-color); color: var(--text-main); padding: 8px; font-family: monospace; border-radius: 2px; }
+        .btn { padding: 10px 20px; background-color: var(--bg-input); border: 1px solid var(--accent-blue); color: var(--accent-blue); font-weight: bold; text-transform: uppercase; cursor: pointer; border-radius: 2px; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div style="font-weight: bold; text-transform: uppercase; margin-bottom: 12px;">Court Report Builder &amp; Legal Sign-off Matrix</div>
+        <form onsubmit="event.preventDefault(); executeSeal();">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Target Active Identity Vector</label>
+                    <input type="text" id="targetId" class="control" value="BIO-8821-COMPLY">
+                </div>
+                <div class="form-group">
+                    <label>Compliance Officer Operations Token</label>
+                    <input type="text" id="officerToken" class="control" placeholder="SEC-OP-XXXX" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Warrant Jurisdiction Code Scope</label>
+                    <input type="text" class="control" value="VOLUMETRIC-BIOSIGNAL-INGEST-ONLY" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Automated Authorization Signature Hash</label>
+                    <input type="text" id="authHash" class="control" value="AWAITING_OFFICER_TOKEN" readonly>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: flex-end;">
+                <button type="submit" class="btn">Seal Chain Sign-off</button>
+            </div>
+        </form>
+    </div>
+
+<script>
+    const tokenInput = document.getElementById('officerToken');
+    tokenInput.addEventListener('input', () => {
+        if(parent && parent.CBOS_Core) {
+            document.getElementById('authHash').value = parent.CBOS_Core.generateSystemVerificationHash(tokenInput.value);
+        }
+    });
+
+    function executeSeal() {
+        alert("Legal manifest entry hash trace sealed to case report structure.");
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cyber-Bio-OS v3.0 - WebSerial Storage Aggregator Node</title>
+    <style>
+        :root {
+            --bg-main: #02070F;
+            --bg-card: #05101E;
+            --bg-input: #0A1C33;
+            --text-main: #D5E3F5;
+            --text-muted: #5B7594;
+            --accent-blue: #00A2FF;
+            --accent-green: #00E676;
+            --accent-red: #FF3D00;
+            --border-color: #0F2E54;
+            --font-mono: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Segoe UI', -apple-system, sans-serif;
+            font-size: 12px;
+            margin: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .ui-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 2px;
+            margin-bottom: 15px;
+        }
+
+        .panel-heading {
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-left: 3px solid var(--accent-blue);
+            padding-left: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        label {
+            text-transform: uppercase;
+            font-size: 10px;
+            color: var(--text-muted);
+            font-weight: bold;
+        }
+
+        .control-select {
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px;
+            border-radius: 2px;
+        }
+
+        .btn-action {
+            padding: 10px 20px;
+            background-color: var(--bg-input);
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 2px;
+            font-size: 11px;
+        }
+
+        .btn-action:hover {
+            background-color: var(--accent-blue);
+            color: #02070F;
+        }
+
+        .export-progress-container {
+            background-color: #010408;
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            margin-top: 15px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ui-card">
+        <div class="panel-heading">
+            <span>WebSerial Forensic Device Exporter</span>
+            <span id="hardwareStatus" style="color: var(--accent-red); font-family: var(--font-mono); font-size: 11px;">● DISCONNECTED</span>
+        </div>
+        
+        <p style="color: var(--text-muted); margin-top: 0; line-height: 1.4;">
+            Securely push verified drop box digital assets directly onto an external encryption module or dedicated hardware repository drive using the native browser WebSerial handshake pipelines.
+        </p>
+
+        <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+            <button class="btn-action" onclick="establishSerialConnection()">Initialize Hardware Link</button>
+        </div>
+
+        <form onsubmit="event.preventDefault(); initiateStreamingUpload();">
+            <div class="form-group">
+                <label>Select Target Evidence File Payload</label>
+                <select id="evidenceTarget" class="control-select">
+                    <option value="leak_archive_2026.zip">leak_archive_2026.zip [SHA-256 Validated]</option>
+                    <option value="peripheral_dump_unreg.img">peripheral_dump_unreg.img [Quarantined Pool]</option>
+                </select>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end;">
+                <button type="submit" class="btn-action" id="submitBtn" disabled>Stream Data Package</button>
+            </div>
+        </form>
+
+        <!-- STREAM DATA TRANSMISSION MATRIX OUTPUT -->
+        <div class="export-progress-container" id="progressUI">
+            <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px; margin-bottom: 6px;">
+                <span>Exporting Byte Pipeline...</span>
+                <span id="percentText" style="color: var(--accent-blue);">0%</span>
+            </div>
+            <div style="background-color: var(--bg-main); height: 12px; border: 1px solid var(--border-color); border-radius: 2px; overflow: hidden; display: flex;">
+                <div id="progressBar" style="background-color: var(--accent-green); width: 0%; transition: width 0.1s ease;"></div>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+    let activeSerialPort = null;
+    let serialStreamWriter = null;
+
+    /**
+     * Triggers native browser window security prompts
+     * requesting permission to handshake with connected COM / TTY hardware nodes.
+     */
+    async function establishSerialConnection() {
+        if (!("serial" in navigator)) {
+            alert("The WebSerial API is not supported by your current browser profile framework.");
+            return;
+        }
+
+        try {
+            // Request user access permission to local hardware nodes
+            activeSerialPort = await navigator.serial.requestPort();
+            
+            // Establish target speed parameters
+            await activeSerialPort.open({ baudRate: 115200 });
+            
+            serialStreamWriter = activeSerialPort.writable.getWriter();
+            
+            // Adjust system display logs
+            const statusLabel = document.getElementById('hardwareStatus');
+            statusLabel.innerText = "● LINK SECURED // DATA READY";
+            statusLabel.style.color = "var(--accent-green)";
+            document.getElementById('submitBtn').disabled = false;
+            
+            appendCoreLog("WebSerial channel handshake successfully established.");
+        } catch (error) {
+            console.error("Hardware pipeline initiation block failure: ", error);
+            alert("Serial Connection Refused: " + error.message);
+        }
+    }
+
+    /**
+     * Simulates byte packaging chunk stream processing blocks
+     * sequentially routing data arrays out through our verified serial interface port.
+     */
+    async function initiateStreamingUpload() {
+        if(!serialStreamWriter) return;
+        
+        const selectedFile = document.getElementById('evidenceTarget').value;
+        const progressBox = document.getElementById('progressUI');
+        const progressBar = document.getElementById('progressBar');
+        const percentText = document.getElementById('percentText');
+        
+        progressBox.style.display = "block";
+        document.getElementById('submitBtn').disabled = true;
+
+        // Mock string array representing broken down data packages payload chunks
+        const payloadHeader = `START_STREAM:${selectedFile}\n`;
+        const textEncoder = new TextEncoder();
+        
+        // Write the baseline processing command package over wires
+        await serialStreamWriter.write(textEncoder.encode(payloadHeader));
+
+        let streamingProgressPercent = 0;
+        
+        // Streaming buffer loops chunk iterations simulation 
+        const streamingInterval = setInterval(async () => {
+            streamingProgressPercent += 5;
+            progressBar.style.width = `${streamingProgressPercent}%`;
+            percentText.innerText = `${streamingProgressPercent}%`;
+
+            // Stream a simulated data chunk across active lines
+            const dummyPacketChunk = `DATA_BLOCK:[CHUNK_${streamingProgressPercent / 5}]\n`;
+            await serialStreamWriter.write(textEncoder.encode(dummyPacketChunk));
+
+            if(streamingProgressPercent >= 100) {
+                clearInterval(streamingInterval);
+                await serialStreamWriter.write(textEncoder.encode("END_STREAM\n"));
+                
+                alert(`File transaction complete. Asset streamed directly to peripheral hardware storage.`);
+                progressBox.style.display = "none";
+                progressBar.style.width = "0%";
+                document.getElementById('submitBtn').disabled = false;
+            }
+        }, 150);
+    }
+
+    function appendCoreLog(text) {
+        if (parent && parent.CBOS_Core && parent.CBOS_Core.channel) {
+            parent.CBOS_Core.channel.postMessage({
+                type: 'SYSTEM_HARDWARE_ALERT',
+                payload: text
+            });
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,489 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Bio Forensic System 3.0 - Chain of Custody Inflow</title>
+    <style>
+        :root {
+            --bg-main: #02070F;
+            --bg-card: #05101E;
+            --bg-input: #0A1C33;
+            --text-main: #D5E3F5;
+            --text-muted: #5B7594;
+            --accent-blue: #00A2FF;
+            --accent-green: #00E676;
+            --accent-amber: #FFB300;
+            --accent-red: #FF3D00;
+            --border-color: #0F2E54;
+            --font-mono: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+
+
+        /* Left Application Sidebar matching Main Menu */
+       
+
+        
+
+
+        
+        /* Right Hand Content Panel */
+        .main-workspace {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* System Status Top Nav Strip */
+        .top-status-strip {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-indicators {
+            display: flex;
+            gap: 20px;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+
+        .indicator-item span {
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
+        /* Captive Portal Soft AP Connection Details */
+        .portal-telemetry-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .telemetry-node {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            border-radius: 2px;
+        }
+
+        .telemetry-node .title {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            font-weight: bold;
+        }
+
+        .telemetry-node .data {
+            font-size: 15px;
+            font-family: var(--font-mono);
+            font-weight: bold;
+        }
+
+        /* Real-Time Triage Area */
+        .triage-panel {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+        }
+
+        .panel-heading {
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 12px;
+            border-left: 3px solid var(--accent-blue);
+            padding-left: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .live-marker {
+            color: var(--accent-red);
+            font-size: 11px;
+            animation: pulse-glow 1.5s infinite;
+        }
+
+        .triage-row-item {
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1.2fr;
+            gap: 20px;
+            align-items: center;
+        }
+
+        /* Voting Metrics Gauges */
+        .voting-metrics-box {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .progress-bar-track {
+            background-color: var(--bg-input);
+            height: 10px;
+            border-radius: 2px;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .bar-segment { height: 100%; }
+        .bar-segment.keep { background-color: var(--accent-green); }
+        .bar-segment.isolate { background-color: var(--accent-amber); }
+        .bar-segment.drop { background-color: var(--accent-red); }
+
+        /* Tactical Control Interface Buttons */
+        .action-cluster {
+            display: flex;
+            gap: 8px;
+        }
+
+        .control-btn {
+            flex: 1;
+            padding: 8px;
+            background: none;
+            border: 1px solid var(--border-color);
+            color: #FFF;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: all 0.2s ease;
+        }
+
+        .control-btn.btn-keep { border-color: var(--accent-green); color: var(--accent-green); }
+        .control-btn.btn-keep:hover { background-color: rgba(0, 230, 118, 0.1); }
+        
+        .control-btn.btn-isolate { border-color: var(--accent-amber); color: var(--accent-amber); }
+        .control-btn.btn-isolate:hover { background-color: rgba(255, 179, 0, 0.1); }
+
+        .control-btn.btn-drop { border-color: var(--accent-red); color: var(--accent-red); }
+        .control-btn.btn-drop:hover { background-color: rgba(255, 61, 0, 0.1); }
+
+        /* Full Ledger Architecture Log */
+        .ledger-panel {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+        }
+
+        .ledger-data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            margin-top: 10px;
+        }
+
+        .ledger-data-table th {
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: bold;
+            text-align: left;
+            padding: 8px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .ledger-data-table td {
+            padding: 8px;
+            border-bottom: 1px solid var(--border-color);
+            font-family: var(--font-mono);
+        }
+
+        .ledger-data-table tbody tr:hover {
+            background-color: var(--bg-input);
+        }
+
+        .status-tag {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 10px;
+        }
+
+        @keyframes pulse-glow {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="platform-container">
+    <div class="sidebar">
+       
+  
+    </div>
+
+    <div class="main-workspace">
+        <div class="top-status-strip">
+            <div style="font-size: 13px; font-weight: bold; text-transform: uppercase;">
+                Chain of Custody Manager v3.0
+            </div>
+            <div class="status-indicators">
+                <div class="indicator-item">Portal Interface: <span>ONLINE</span></div>
+                <div class="indicator-item">Storage Array: <span style="color:var(--accent-blue)">2.4 TB AVAIL</span></div>
+            </div>
+        </div>
+
+        <div class="portal-telemetry-grid">
+            <div class="telemetry-node">
+                <div class="title">Soft AP ESSID</div>
+                <div class="data" style="color: var(--accent-blue)">Forensic_Ingest_Net</div>
+            </div>
+            <div class="telemetry-node">
+                <div class="title">Authenticated Bio-Profiles</div>
+                <div class="data">04 Active</div>
+            </div>
+            <div class="telemetry-node">
+                <div class="title">Chat Handshake Signature</div>
+                <div class="data" style="color: var(--accent-amber)">SEC-DH-992a</div>
+            </div>
+            <div class="telemetry-node">
+                <div class="title">Consensus Ruleset</div>
+                <div class="data">Triage Majority</div>
+            </div>
+        </div>
+
+        <div class="triage-panel">
+            <div class="panel-heading">
+                <span>Captive Portal Drop Box Queue</span>
+                <span class="live-marker">● LIVE INFLOW</span>
+            </div>
+            <div class="triage-row-item">
+                <div>
+                    <div style="font-size: 13px; font-weight: bold; color: var(--accent-blue)">leak_archive_2026.zip</div>
+                    <div style="font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); margin-top: 4px;">
+                        SHA-256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b...
+                    </div>
+                    <div style="font-size: 11px; margin-top: 6px;">
+                        Profile Sign: <span style="color: var(--accent-green)">BIO-8821-COMPLY [98.2%]</span>
+                    </div>
+                </div>
+
+                <div class="voting-metrics-box">
+                    <div style="display: flex; justify-content: space-between; font-size: 10px; font-weight: bold;">
+                        <span style="color: var(--accent-green)">KEEP: 60%</span>
+                        <span style="color: var(--accent-amber)">ISOLATE: 30%</span>
+                        <span style="color: var(--accent-red)">DROP: 10%</span>
+                    </div>
+                    <div class="progress-bar-track">
+                        <div class="bar-segment keep" style="width: 60%"></div>
+                        <div class="bar-segment isolate" style="width: 30%"></div>
+                        <div class="bar-segment drop" style="width: 10%"></div>
+                    </div>
+                    <div style="color: var(--text-muted); font-size: 10px; text-align: center;">
+                        6 of 10 Team Votes Collected
+                    </div>
+                </div>
+
+                <div class="action-cluster">
+                    <button class="control-btn btn-keep">Keep</button>
+                    <button class="control-btn btn-isolate">Isolate</button>
+                    <button class="control-btn btn-drop">Disregard</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="ledger-panel">
+            <div class="panel-heading">Committed Immutable Chain Ledger</div>
+            <table class="ledger-data-table">
+                <thead>
+                    <tr>
+                        <th>Evidence ID</th>
+                        <th>Timestamp Mapping</th>
+                        <th>Ingestion Route Node</th>
+                        <th>Consensus Sign-Off</th>
+                        <th>Cryptographic Audit Hash</th>
+                        <th>Locker Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="color: var(--accent-blue)">EV-248</td>
+                        <td>05/18/2026 10:42 PM</td>
+                        <td>SOFTAP-PROV-04</td>
+                        <td style="color: var(--accent-green)">Keep (80%)</td>
+                        <td>a3f5b7c...9c2d</td>
+                        <td><span class="status-tag" style="color: var(--accent-green)">✓ Verified Locker</span></td>
+                    </tr>
+                    <tr>
+                        <td style="color: var(--accent-blue)">EV-247</td>
+                        <td>05/18/2026 10:41 PM</td>
+                        <td>SOFTAP-PROV-01</td>
+                        <td style="color: var(--accent-amber)">Isolate (70%)</td>
+                        <td>e5a1d9f...2b1a</td>
+                        <td><span class="status-tag" style="color: var(--accent-amber)">⚠ Quarantined</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        
+                <!-- ================= SUB-PANEL: SIGNAL ANALYZER ================= -->
+        <div id="panel-signals" class="view-panel" style="display: flex; flex-direction: column; gap: 20px;">
+            <div class="ui-card" style="background-color: var(--bg-card); border: 1px solid var(--border-color); padding: 15px; border-radius: 2px;">
+                <div class="panel-heading" style="font-size: 12px; text-transform: uppercase; font-weight: bold; margin-bottom: 15px; border-left: 3px solid var(--accent-blue); padding-left: 8px; display: flex; justify-content: space-between; align-items: center;">
+                    <span>Bio-Signal Monitoring Matrix Cluster</span>
+                    <span style="color: var(--accent-green); font-size: 11px; font-family: var(--font-mono);">● HARDWARE INTEGRATION TELEMETRY LIVE</span>
+                </div>
+
+                <!-- Three-Column Telemetry Stream Layout -->
+                <div class="signal-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 10px;">
+                    
+                    <!-- Channel 01 Card: Electrocardiogram -->
+                    <div class="channel-card" style="background-color: var(--bg-main); border: 1px solid var(--border-color); padding: 12px; border-radius: 2px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; text-transform: uppercase; font-size: 11px;">
+                            <strong style="color: var(--accent-blue);">CH-01: Electrocardiogram [ECG]</strong>
+                            <span style="color: var(--accent-green);">Live Stream</span>
+                        </div>
+                        <!-- Drawing Area Canvas Container Box for Wave -->
+                        <div style="background-color: rgba(2, 7, 15, 0.8); height: 120px; border: 1px solid var(--border-color); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                            <canvas id="ecgCanvas" width="300" height="120" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></canvas>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-top: 10px; font-size: 11px; font-family: var(--font-mono); color: var(--text-muted);">
+                            <div>Rate: <span id="ecgValue" style="color: var(--text-main); font-weight: bold;">72</span> BPM</div>
+                            <div style="color: var(--accent-green);">STATUS: NOMINAL</div>
+                        </div>
+                    </div>
+
+
+                    <!-- Channel 02 Card: Electromyography -->
+                    <div class="channel-card" style="background-color: var(--bg-main); border: 1px solid var(--border-color); padding: 12px; border-radius: 2px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; text-transform: uppercase; font-size: 11px;">
+                            <strong style="color: var(--accent-blue);">CH-02: Electromyography [EMG]</strong>
+                            <span style="color: var(--accent-amber);">Burst Inflow</span>
+                        </div>
+                        <div style="background-color: rgba(2, 7, 15, 0.8); height: 120px; border: 1px solid var(--border-color); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                            <canvas id="emgCanvas" width="300" height="120" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></canvas>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-top: 10px; font-size: 11px; font-family: var(--font-mono); color: var(--text-muted);">
+                            <div>Activity: <span id="emgValue" style="color: var(--text-main); font-weight: bold;">12</span> µV</div>
+                            <div style="color: var(--accent-amber);">STATE: IDLE</div>
+                        </div>
+                    </div>
+
+                    <!-- Channel 03 Card: Galvanic Skin Response -->
+                    <div class="channel-card" style="background-color: var(--bg-main); border: 1px solid var(--border-color); padding: 12px; border-radius: 2px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; text-transform: uppercase; font-size: 11px;">
+                            <strong style="color: var(--accent-blue);">CH-03: Galvanic Skin Response [GSR]</strong>
+                            <span style="color: var(--accent-blue);">Monitoring</span>
+                        </div>
+                        <div style="background-color: rgba(2, 7, 15, 0.8); height: 120px; border: 1px solid var(--border-color); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                            <canvas id="gsrCanvas" width="300" height="120" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></canvas>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-top: 10px; font-size: 11px; font-family: var(--font-mono); color: var(--text-muted);">
+                            <div>Conductance: <span id="gsrValue" style="color: var(--text-main); font-weight: bold;">4.8</span> µS</div>
+                            <div style="color: var(--accent-blue);">BASELINE: STABLE</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- System Diagnostic Log Log Sub-Section -->
+            <div class="ui-card" style="background-color: var(--bg-card); border: 1px solid var(--border-color); padding: 15px; border-radius: 2px;">
+                <div class="panel-heading" style="font-size: 12px; text-transform: uppercase; font-weight: bold; margin-bottom: 10px; border-left: 3px solid var(--accent-blue); padding-left: 8px;">Captured Biosignal Telemetry Stream Audit Ledger</div>
+                <table class="data-table" style="width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--border-color); text-align: left; color: var(--text-muted); text-transform: uppercase;">
+                            <th style="padding: 8px;">Timestamp Block</th>
+                            <th style="padding: 8px;">Active Identity Origin Target Mapping</th>
+                            <th style="padding: 8px;">Sensor Array Channel Node</th>
+                            <th style="padding: 8px;">Calculated Mean Metric Values</th>
+                        </tr>
+                    </thead>
+                    <tbody style="font-family: var(--font-mono);">
+                        <tr style="border-bottom: 1px solid var(--border-color);">
+                            <td style="padding: 8px;">07/19/2026 03:52:14 PM</td>
+                            <td>BIO-8821-COMPLY</td>
+                            <td>CH-01 [ECG MONITORING ARRAY]</td>
+                            <td>72.4 BPM Average Ingest Stream</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-color);">
+                            <td style="padding: 8px;">07/19/2026 03:52:10 PM</td>
+                            <td>BIO-8821-COMPLY</td>
+                            <td>CH-03 [GSR SENSITIVITY SCOPE]</td>
+                            <td>4.82 µS Baseline Electro-Dermal Scan</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+<script>
+    // Live Procedural Audio/Visual Telemetry Scope Rendering Loop Mock
+    const canvasIds = ['ecgCanvas', 'emgCanvas', 'gsrCanvas'];
+    let waveOffsets =;
+
+    function runScopeSimulationUpdates() {
+        canvasIds.forEach((id, index) => {
+            const canvas = document.getElementById(id);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Grid Lines Background Graphics Layout
+            ctx.strokeStyle = 'rgba(15, 46, 84, 0.2)';
+            ctx.lineWidth = 1;
+            for(let i=0; i<canvas.width; i+=20) { ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke(); }
+            for(let j=0; j<canvas.height; j+=20) { ctx.beginPath(); ctx.moveTo(0, j); ctx.lineTo(canvas.width, j); ctx.stroke(); }
+
+            // Trace Signal Generator Waves Loops
+            ctx.beginPath();
+            ctx.lineWidth = 1.5;
+            if(index === 0) { ctx.strokeStyle = '#00E676'; } // Green for ECG
+            else if(index === 1) { ctx.strokeStyle = '#FFB300'; } // Amber for EMG
+            else { ctx.strokeStyle = '#00A2FF'; } // Blue for GSR
+
+            waveOffsets[index] += 2;
+            if (waveOffsets[index] > canvas.width) waveOffsets[index] = 0;
+
+            for (let x = 0; x < canvas.width; x++) {
+                let y = canvas.height / 2;
+                if (index === 0) { // Formulate mathematical ECG heart rhythm spikes
+                    let mod = (x + waveOffsets[index]) % 80;
+                    if (mod > 35 && mod < 40) y -= 35;
+                    else if (mod >= 40 && mod < 45) y += 20;
+                } else if (index === 1) { // Formulate dynamic jagged noise parameters for EMG contractions
+                    if (x % 5 === 0) y += (Math.random() - 0.5) * 15;
+                } else { // Formulate steady crawling wave patterns for GSR sweat metrics
+                    y += Math.sin((x + waveOffsets[index]) * 0.03) * 10;
+                }
+                if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+        });
+        requestAnimationFrame(runScopeSimulationUpdates);
+    }
+    // Launch engine telemetry graphics animation frame track loops loops safely
+    setTimeout(runScopeSimulationUpdates, 100);
+</script>
+
+
+
+        
+        
+    </div>
+</div>
+
+</body>
+</html>

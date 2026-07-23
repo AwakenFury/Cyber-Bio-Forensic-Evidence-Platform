@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        :root {
+            --bg-main: #02070F; --bg-card: #05101E; --bg-input: #0A1C33;
+            --text-main: #D5E3F5; --text-muted: #5B7594;
+            --accent-blue: #00A2FF; --accent-green: #00E676; --border-color: #0F2E54;
+        }
+        body {
+            background-color: var(--bg-main); color: var(--text-main);
+            font-family: 'Segoe UI', sans-serif; font-size: 12px; margin: 20px;
+        }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; }
+        .card { background-color: var(--bg-card); border: 1px solid var(--border-color); padding: 15px; border-radius: 2px; }
+        .heading { font-weight: bold; text-transform: uppercase; font-size: 11px; color: var(--accent-blue); margin-bottom: 10px; }
+        .metric { font-size: 22px; font-family: monospace; font-weight: bold; margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+    <div class="grid-3">
+        <div class="card">
+            <div class="heading">Ingestion Access Point Node</div>
+            <div class="metric" style="color: var(--accent-blue);">CBOS-AP-01</div>
+        </div>
+        <div class="card">
+            <div class="heading">Active Ingestion Profiles</div>
+            <div class="metric">04 Linked</div>
+        </div>
+        <div class="card">
+            <div class="heading">Cryptographic Core State</div>
+            <div class="metric" style="color: var(--accent-green);">SECURE</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="heading" style="color: #FFF;">Operational Intelligence Overview</div>
+        <p style="color: var(--text-muted); line-height: 1.5;">
+            Welcome to the Cyber-Bio-OS (CBOS) v3.0 Distributed Shell Environment. 
+            Use the tactical control sidebar elements to manage ingestion pipelines, verify biometric identity traces, 
+            and validate chain-of-custody matrices across peripheral networks.
+        </p>
+    </div>
+
+<script>
+    // Module Synchronization Protocol
+    if (parent && parent.CBOS_Core) {
+        console.log("Dashboard Node connected to Core Matrix version: " + parent.CBOS_Core.version);
+    }
+</script>
+</body>
+</html>

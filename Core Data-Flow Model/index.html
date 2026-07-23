@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber-Bio-OS v3.0 - Integrated Host Terminal Shell</title>
+    <style>
+        :root {
+            --bg-main: #02070F;
+            --bg-card: #05101E;
+            --bg-input: #0A1C33;
+            --text-main: #D5E3F5;
+            --text-muted: #5B7594;
+            --accent-blue: #00A2FF;
+            --accent-green: #00E676;
+            --accent-amber: #FFB300;
+            --border-color: #0F2E54;
+            --font-mono: 'Courier New', Courier, monospace;
+        }
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-size: 12px;
+            overflow: hidden;
+        }
+        .os-container {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            height: 100vh;
+        }
+        .os-sidebar {
+            background-color: var(--bg-card);
+            border-right: 1px solid var(--border-color);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .brand-header {
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #FFF;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        .nav-links { display: flex; flex-direction: column; gap: 4px; }
+        .nav-button {
+            background: none; border: none;
+            color: var(--text-muted); text-align: left;
+            padding: 11px 12px; border-radius: 2px;
+            text-transform: uppercase; font-size: 11px;
+            font-weight: 600; cursor: pointer; width: 100%;
+        }
+        .nav-button:hover { background-color: rgba(10, 28, 51, 0.5); color: var(--text-main); }
+        .nav-button.active {
+            background-color: var(--bg-input);
+            color: var(--accent-blue);
+            border-left: 3px solid var(--accent-blue);
+        }
+        .workspace { display: flex; flex-direction: column; height: 100vh; }
+        .os-topbar {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        
+        /* Tactical Chrono Slider Assembly Styles */
+        .scrubber-panel {
+            background-color: #030B14;
+            border-bottom: 1px solid var(--border-color);
+            padding: 10px 20px;
+            display: grid;
+            grid-template-columns: 140px 1fr 180px;
+            align-items: center;
+            gap: 15px;
+        }
+        .scrubber-control {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            outline: none;
+            cursor: pointer;
+        }
+        .scrubber-control::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            background: var(--accent-blue);
+            border: 2px solid #FFF;
+            border-radius: 1px;
+            box-shadow: 0 0 8px var(--accent-blue);
+        }
+        
+        .app-viewport {
+            flex-grow: 1; border: none;
+            width: 100%; height: 100%;
+            background-color: var(--bg-main);
+        }
+    </style>
+</head>
+<body>
+
+<div class="os-container">
+    <div class="os-sidebar">
+        <div>
+            <div class="brand-header">Cyber-Bio-OS 3.0</div>
+            <div class="nav-links">
+                <button class="nav-button active" onclick="loadAppModule('dashboard.html', this)">Dashboard</button>
+                <button class="nav-button" onclick="loadAppModule('Custody.html', this)">Chain of Custody</button>
+                <button class="nav-button" onclick="loadAppModule('evidence.html', this)">Evidence Manager</button>
+                <button class="nav-button" onclick="loadAppModule('signals.html', this)">Signal Scope</button>
+                <button class="nav-button" onclick="loadAppModule('packet-viewer.html', this)">Packet Viewer</button>
+                <button class="nav-button" onclick="loadAppModule('timeline.html', this)">Timeline Ledger</button>
+                <button class="nav-button" onclick="loadAppModule('court_report_builder.html', this)">Court Report Builder</button>
+                <button class="nav-button" onclick="loadAppModule('reports.html', this)">Report Generator</button>
+                <button class="nav-button" onclick="loadAppModule('biotelemetry.html', this)">Bio Telemetry</button>
+                <button class="nav-button" onclick="loadAppModule('rf-analyzer.html', this)">RF Analyzer</button>
+                <button class="nav-button" onclick="loadAppModule('debate-calibration.html', this)">Triage Debate</button>
+                <button class="nav-button" onclick="loadAppModule('timeline.html', this)">Timeline Ledger</button>
+                <button class="nav-button" onclick="loadAppModule('serial-exporter.html', this)">Hardware Export</button>
+                <button class="nav-button" onclick="loadAppModule('documents.html', this)">Documents</button>
+                <button class="nav-button" onclick="loadAppModule('rf-fusion-hud.html', this)">RF Fusion HUD</button>
+                <button class="nav-button" onclick="loadAppModule('neural-mesh.html', this)">Neural Mesh</button>
+            </div>
+        </div>
+        <div style="font-family: monospace; color: var(--text-muted); text-align: center; font-size: 10px;">
+            CBOS-CORE // ONLINE
+        </div>
+    </div>
+
+    <div class="workspace">
+        <div class="os-topbar">
+            <div id="module-title" style="font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Dashboard</div>
+            <div style="display: flex; gap: 20px; font-size: 11px; text-transform: uppercase; font-weight: bold;">
+                <div>Core Link: <span style="color: var(--accent-green)">STABLE</span></div>
+                <div>Case ID: <span style="color: var(--accent-blue)">CASE-2026-X8</span></div>
+            </div>
+        </div>
+
+        <!-- OPERATIONAL CHRONO TIME SCRUBBER INTERFACE BLOCK -->
+        <div class="scrubber-panel">
+            <div style="font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); font-weight: bold; text-transform: uppercase;">
+                Temporal Track
+            </div>
+            <div>
+                <input type="range" id="globalScrubber" class="scrubber-control" min="0" max="600" value="600" oninput="broadcastTimeSync(this.value)">
+            </div>
+            <div style="text-align: right; font-family: var(--font-mono); font-size: 11px;">
+                <span style="color: var(--accent-amber);" id="timeDisplay">LIVE FORENSIC MONITOR</span>
+            </div>
+        </div>
+
+        <iframe id="appFrame" class="app-viewport" src="dashboard.html"></iframe>
+    </div>
+</div>
+
+<script src="cyberbio-core.js"></script>
+<script>
+    function loadAppModule(url, buttonElement) {
+        document.getElementById('appFrame').src = url;
+        document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('active'));
+        buttonElement.classList.add('active');
+        document.getElementById('module-title').innerText = buttonElement.innerText;
+        
+        // Sync timeframe states immediately upon rendering components
+        setTimeout(() => {
+            broadcastTimeSync(document.getElementById('globalScrubber').value);
+        }, 150);
+    }
+
+    /**
+     * Translates raw integer tick coordinates into forensic timeline strings
+     * Maps across a 10-minute window relative to the system benchmark time.
+     */
+    function calculateForensicTime(tickValue) {
+        if(parseInt(tickValue) === 600) return "LIVE MONITORING";
+        
+        const baseBenchmarkTime = new Date("2026-07-19T16:30:00");
+        baseBenchmarkTime.setSeconds(baseBenchmarkTime.getSeconds() + parseInt(tickValue));
+        return baseBenchmarkTime.toISOString().replace('T', ' ').substring(11, 19) + " EST";
+    }
+
+    function broadcastTimeSync(tickValue) {
+        const displayLabel = document.getElementById('timeDisplay');
+        const frame = document.getElementById('appFrame').contentWindow;
+        const timeString = calculateForensicTime(tickValue);
+        
+        if(tickValue == 600) {
+            displayLabel.innerText = "LIVE FORENSIC MONITOR";
+            displayLabel.style.color = "var(--accent-green)";
+        } else {
+            displayLabel.innerText = timeString;
+            displayLabel.style.color = "var(--accent-amber)";
+        }
+
+        // Post-message thread dispatch payload to child iframes
+        if (frame) {
+            frame.postMessage({
+                type: 'CBOS_TIME_TRAVEL_SYNC',
+                payload: {
+                    tick: parseInt(tickValue),
+                    isLive: (parseInt(tickValue) === 600),
+                    timeLabel: timeString
+                }
+            }, '*');
+        }
+    }
+</script>
+</body>
+</html>

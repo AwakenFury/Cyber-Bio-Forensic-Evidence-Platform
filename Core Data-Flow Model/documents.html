@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cyber-Bio-OS v3.0 - Documents &amp; Log Storage Matrix Node</title>
+    <style>
+        :root {
+            --bg-main: #02070F;
+            --bg-card: #05101E;
+            --bg-input: #0A1C33;
+            --text-main: #D5E3F5;
+            --text-muted: #5B7594;
+            --accent-blue: #00A2FF;
+            --accent-green: #00E676;
+            --accent-amber: #FFB300;
+            --accent-red: #FF3D00;
+            --border-color: #0F2E54;
+            --font-mono: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Segoe UI', -apple-system, sans-serif;
+            font-size: 12px;
+            margin: 15px;
+            letter-spacing: 0.5px;
+            overflow-x: hidden;
+        }
+
+        .ui-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 2px;
+            margin-bottom: 15px;
+        }
+
+        .panel-heading {
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-left: 3px solid var(--accent-blue);
+            padding-left: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .storage-grid-layout {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 15px;
+            height: calc(100vh - 100px);
+        }
+
+        /* Filesystem Directory Navigation Column Layout */
+        .directory-tree-box {
+            background-color: rgba(2, 7, 15, 0.4);
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .dir-node-item {
+            padding: 8px 10px;
+            border-radius: 2px;
+            color: var(--text-muted);
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 600;
+            transition: all 0.15s ease;
+        }
+
+        .dir-node-item:hover {
+            background-color: rgba(10, 28, 51, 0.4);
+            color: var(--text-main);
+        }
+
+        .dir-node-item.active {
+            background-color: var(--bg-input);
+            color: var(--accent-blue);
+        }
+
+        /* Unified File Manifest Ledger Data Tables Styles */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+
+        .data-table th {
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: bold;
+            text-align: left;
+            padding: 8px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .data-table td {
+            padding: 8px;
+            border-bottom: 1px solid var(--border-color);
+            font-family: var(--font-mono);
+        }
+
+        .data-table tbody tr:hover {
+            background-color: var(--bg-input);
+        }
+
+        .badge-type {
+            font-family: var(--font-mono);
+            font-weight: bold;
+            font-size: 9px;
+            padding: 2px 5px;
+            border-radius: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SYSTEM FILE VOLUMETRICS RUNTIME HEADERS STRIP -->
+    <div class="ui-card" style="padding: 10px 15px; display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-weight: bold; text-transform: uppercase; font-size: 11px;">
+            ● CBOS Local Storage Partition Allocation Mapping
+        </div>
+        <div style="display: flex; gap: 20px; font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);">
+            <div>MOUNT POINT: <span style="color: var(--text-main);">/mnt/forensic_pool</span></div>
+            <div>USED SPACE: <span style="color: var(--accent-amber);">1.24 TB</span></div>
+            <div>AVAILABLE: <span style="color: var(--accent-blue);">2.76 TB</span></div>
+        </div>
+    </div>
+
+    <!-- MAIN INTERACTIVE CASE PARTITION EXPLORER GRID -->
+    <div class="ui-card" style="margin-bottom: 0;">
+        <div class="panel-heading">
+            <span>Case File Directory Node &amp; Logging Grid</span>
+            <span id="dvrIndicator" style="color: var(--accent-green); font-size: 11px; font-family: var(--font-mono);">● STORAGE POOL READ/WRITE MOUNTED</span>
+        </div>
+
+        <div class="storage-grid-layout">
+            <!-- DIRECTION COLUMN SELECTION LINKS -->
+            <div class="directory-tree-box">
+                <div class="dir-node-item active" onclick="filterFileGridByFolder('all', this)">[Root Partition]</div>
+                <div class="dir-node-item" onclick="filterFileGridByFolder('network', this)">↳ Packet Captures</div>
+                <div class="dir-node-item" onclick="filterFileGridByFolder('biometric', this)">↳ Bio Telemetry Logs</div>
+                <div class="dir-node-item" onclick="filterFileGridByFolder('legal', this)">↳ Signed Warrants</div>
+            </div>
+
+
+
+            <!-- INTERACTIVE FILE LISTING MATRIX LOG -->
+            <div style="background-color: rgba(2, 7, 15, 0.2); border: 1px solid var(--border-color); padding: 10px; overflow-y: auto;">
+                <table class="data-table" id="fileTable">
+                    <thead>
+                        <tr>
+                            <th>File Allocation Name</th>
+                            <th>Byte Sizing</th>
+                            <th>Origin Source Mapping</th>
+                            <th>Verification Seal Hash</th>
+                            <th>Directory Category</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-folder="network">
+                            <td style="color: var(--accent-blue); font-weight: bold;">packet_dump_ch6.pcap</td>
+                            <td>42.8 MB</td>
+                            <td>SOFTAP-PROV-04</td>
+                            <td>e3b0c442...855f</td>
+                            <td><span class="badge-type" style="background: rgba(0,162,255,0.1); color: var(--accent-blue);">NETWORK</span></td>
+                        </tr>
+                        <tr data-folder="biometric">
+                            <td style="color: var(--accent-blue); font-weight: bold;">bio_session_8821.bin</td>
+                            <td>12.4 MB</td>
+                            <td>NEURAL-CORE-MESH</td>
+                            <td>a3f5b7c2...9c2d</td>
+                            <td><span class="badge-type" style="background: rgba(0,230,118,0.1); color: var(--accent-green);">BIOMETRIC</span></td>
+                        </tr>
+                        <tr data-folder="legal">
+                            <td style="color: var(--accent-blue); font-weight: bold;">warrant_sign_approved.sig</td>
+                            <td>4.2 KB</td>
+                            <td>LEGAL-MATRIX-OP</td>
+                            <td>b7c2a109...1e8f</td>
+                            <td><span class="badge-type" style="background: rgba(255,179,0,0.1); color: var(--accent-amber);">LEGAL</span></td>
+                        </tr>
+                        <tr data-folder="network">
+                            <td style="color: var(--accent-blue); font-weight: bold;">ap_handshake_traces.log</td>
+                            <td>842 KB</td>
+                            <td>SOFTAP-PROV-01</td>
+                            <td>e5a1d9f4...2b1a</td>
+                            <td><span class="badge-type" style="background: rgba(0,162,255,0.1); color: var(--accent-blue);">NETWORK</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+<script>
+    /**
+     * Filters visibility rules across tabular grid assets row entries
+     * based on investigator layout directory column selectors.
+     */
+    function filterFileGridByFolder(folderCategory, clickedElement) {
+        // Shift active design display markers indicators highlights classes
+        document.querySelectorAll('.dir-node-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        clickedElement.classList.add('active');
+
+        // Traverse rows updating css display parameters mappings
+        const tableRows = document.querySelectorAll('#fileTable tbody tr');
+        tableRows.forEach(row => {
+            const rowFolderContext = row.getAttribute('data-folder');
+            if (folderCategory === 'all' || rowFolderContext === folderCategory) {
+                row.style.display = 'table-row'; // Restore target entries
+            } else {
+                row.style.display = 'none'; // Cloak non-matching parameters page fields
+            }
+        });
+    }
+
+    // Connect node safely down to CBOS Central Shell Management Infrastructure
+    if (parent && parent.CBOS_Core) {
+        console.log("Documents File Manager mounted to shell instance version: " + parent.CBOS_Core.version);
+    }
+</script>
+</body>
+</html>

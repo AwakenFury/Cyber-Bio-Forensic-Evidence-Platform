@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cyber-Bio-OS v3.0 - Triage Debate &amp; Grounding Calibration Matrix</title>
+    <style>
+        :root {
+            --bg-main: #02070F;
+            --bg-card: #05101E;
+            --bg-input: #0A1C33;
+            --text-main: #D5E3F5;
+            --text-muted: #5B7594;
+            --accent-blue: #00A2FF;
+            --accent-green: #00E676;
+            --accent-amber: #FFB300;
+            --accent-red: #FF3D00;
+            --border-color: #0F2E54;
+            --font-mono: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 12px;
+            margin: 20px;
+            letter-spacing: 0.5px;
+            overflow-x: hidden;
+        }
+
+        .workspace-split {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 20px;
+            height: calc(100vh - 40px);
+        }
+
+        .panel-flex {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: 100%;
+        }
+
+        .ui-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 2px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel-heading {
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-left: 3px solid var(--accent-blue);
+            padding-left: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        /* Tactical Messaging Framework Layout */
+        .chat-history-container {
+            background-color: #010408;
+            border: 1px solid var(--border-color);
+            flex-grow: 1;
+            padding: 12px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .chat-bubble {
+            background-color: var(--bg-input);
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            border-radius: 2px;
+            max-width: 85%;
+        }
+
+        .chat-bubble.system {
+            border-color: var(--accent-blue);
+            background-color: rgba(0, 162, 255, 0.05);
+            align-self: center;
+            max-width: 95%;
+            font-family: var(--font-mono);
+            font-size: 11px;
+        }
+
+        .meta-tag {
+            font-size: 10px;
+            color: var(--text-muted);
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .control-input {
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 10px;
+            font-family: inherit;
+            border-radius: 2px;
+            font-size: 12px;
+        }
+
+        .control-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+
+        /* Calibration Telemetry Metrics Readouts */
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-family: var(--font-mono);
+        }
+
+        .btn-action {
+            padding: 10px 15px;
+            background-color: var(--bg-input);
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 2px;
+            font-size: 11px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-action:hover {
+            background-color: var(--accent-blue);
+            color: #02070F;
+        }
+    </style>
+</head>
+<body>
+
+<div class="workspace-split">
+    <!-- LEFT PANEL: TACTICAL DEBATE ROOM -->
+    <div class="panel-flex">
+        <div class="ui-card" style="flex-grow: 1; height: 100%;">
+            <div class="panel-heading">
+                <span>Operational Inflow Chat Room</span>
+                <span style="color: var(--accent-green); font-size: 11px; font-family: var(--font-mono);">● DEBATE CHAN: SECURE_COORDINATION</span>
+            </div>
+
+            <!-- Thread Feed History Matrix -->
+            <div class="chat-history-container" id="chatHistory">
+                <div class="chat-bubble system">
+                    [SYSTEM NOTICE] Channel initialized. Context linked to core data-flow framework. Storage replication parameters map directly to parent runtime registers.
+                </div>
+                <div class="chat-bubble">
+                    <div class="meta-tag">Investigator_02 // 2026-07-19 16:42:11</div>
+                    <div style="line-height: 1.4;">Reviewing <span style="color: var(--accent-blue); font-weight: bold;">leak_archive_2026.zip</span> ingest log signatures. The metadata matches our target profiles, but we need to pass this vector into the grounding calibration console to evaluate baseline drift boundaries before final ledger commitment.</div>
+                </div>
+                <div class="chat-bubble" style="align-self: flex-end; border-color: var(--border-color);">
+                    <div class="meta-tag" style="color: var(--accent-blue);">Compliance_Officer // 16:43:05</div>
+                    <div style="line-height: 1.4;">Agreed. Running real-time telemetry verification loop on CH-03 spectrum burst signals right now. Checking phase drift to verify signal integrity.</div>
+                </div>
+            </div>
+
+            <!-- Action Input Controls Section -->
+            <div style="display: grid; grid-template-columns: 1fr 180px 100px; gap: 10px; margin-top: 15px; flex-shrink: 0;">
+                <input type="text" id="chatMessage" class="control-input" placeholder="Transmit tactical observation text payload...">
+                <select id="evidenceAttachment" class="control-input" style="font-size: 11px;">
+                    <!-- Pulled dynamically from shared state context hooks -->
+                    <option value="EV-248">Link: leak_archive_2026.zip</option>
+                    <option value="EV-247">Link: peripheral_dump_unreg.img</option>
+                </select>
+                <button type="button" class="btn-action" onclick="transmitMessagePacket()">Transmit</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT PANEL: GROUNDING CALIBRATION CONSOLE OBJECT -->
+    <div class="panel-flex">
+        <div class="ui-card">
+            <div class="panel-heading">Grounding Calibration Engine</div>
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+                <div class="metric-row">
+                    <span style="color: var(--text-muted); font-weight: bold; text-transform: uppercase;">Active Target Binding:</span>
+                    <span id="calTarget" style="color: var(--accent-blue); font-weight: bold;">EV-248 (leak_archive_2026.zip)</span>
+                </div>
+                <div class="metric-row">
+                    <span style="color: var(--text-muted); font-weight: bold; text-transform: uppercase;">Calculated Phase Drift Rate:</span>
+                    <span id="driftRate" style="color: var(--accent-green); font-weight: bold;">0.42% [LEAST DRIFT INDEX]</span>
+                </div>
+                <div class="metric-row">
+                    <span style="color: var(--text-muted); font-weight: bold; text-transform: uppercase;">Bias Influence Factor:</span>
+                    <span style="color: var(--text-main);">0.0801 Variation Delta</span>
+                </div>
+                <div class="metric-row">
+                    <span style="color: var(--text-muted); font-weight: bold; text-transform: uppercase;">Calibration State:</span>
+                    <span style="color: var(--accent-green); font-weight: bold;">GROUNDING OPTIMAL</span>
+                </div>
+            </div>
+            <p style="color: var(--text-muted); line-height: 1.4; margin-top: 15px; margin-bottom: 0; font-size: 11px;">
+                The <strong style="color: var(--text-main);">Least Drift Index</strong> displays which file shows the lowest divergence from absolute telemetry grounding baselines. Low drift directly implies the lowest risk of external adversarial manipulation or tampering during the ingestion pipeline.
+            </p>
+        </div>
+
+        <div class="ui-card" style="flex-grow: 1;">
+            <div class="panel-heading">Ecosystem Drift Comparison Matrix</div>
+            <p style="color: var(--text-muted); margin-top: 0; margin-bottom: 10px;">
+                Cross-channel tracking log isolating signal variance trends across the registered context pool.
+            </p>
+            <table style="width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 5px;">
+                <thead>
+                    <tr style="border-bottom: 2px solid var(--border-color); text-align: left; color: var(--text-muted); text-transform: uppercase;">
+                        <th style="padding: 6px;">ID</th>
+                        <th style="padding: 6px;">Asset Target</th>
+                        <th style="padding: 6px;">Mean Drift</th>
+                        <th style="padding: 6px;">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid var(--border-color); background-color: rgba(0, 230, 118, 0.02);">
+                        <td style="padding: 6px; font-family: var(--font-mono); font-weight: bold; color: var(--accent-blue);">EV-248</td>
+
+
+                                                <td style="padding: 6px; font-family: var(--font-mono); font-weight: bold; color: var(--accent-blue);">EV-248</td>
+                        <td style="padding: 6px; font-family: var(--font-mono);">leak_archive_2026.zip</td>
+                        <td style="padding: 6px; font-family: var(--font-mono); color: var(--accent-green); font-weight: bold;">0.42% [Optimal]</td>
+                        <td style="padding: 6px; color: var(--accent-green); font-weight: bold; text-transform: uppercase; font-size: 10px;">✓ Secured</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border-color);">
+                        <td style="padding: 6px; font-family: var(--font-mono); font-weight: bold; color: var(--accent-blue);">EV-247</td>
+                        <td style="padding: 6px; font-family: var(--font-mono);">peripheral_dump_unreg.img</td>
+                        <td style="padding: 6px; font-family: var(--font-mono); color: var(--accent-amber); font-weight: bold;">3.89% [High Variance]</td>
+                        <td style="padding: 6px; color: var(--accent-amber); font-weight: bold; text-transform: uppercase; font-size: 10px;">⚠ Unstable</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Synchronize select changes to transform the data values in the calibration panel engine
+    const selector = document.getElementById('evidenceAttachment');
+    selector.addEventListener('change', () => {
+        const selectedValue = selector.value;
+        const targetLabel = document.getElementById('calTarget');
+        const driftLabel = document.getElementById('driftRate');
+
+        if(selectedValue === 'EV-248') {
+            targetLabel.innerText = "EV-248 (leak_archive_2026.zip)";
+            driftLabel.innerText = "0.42% [LEAST DRIFT INDEX]";
+            driftLabel.style.color = "var(--accent-green)";
+        } else {
+            targetLabel.innerText = "EV-247 (peripheral_dump_unreg.img)";
+            driftLabel.innerText = "3.89% [HIGH BIAS VARIANCE]";
+            driftLabel.style.color = "var(--accent-amber)";
+        }
+    });
+
+    function transmitMessagePacket() {
+        const msgInput = document.getElementById('chatMessage');
+        const text = msgInput.value.trim();
+        if(!text) return;
+
+        const container = document.getElementById('chatHistory');
+        const bubble = document.createElement('div');
+        bubble.className = "chat-bubble";
+        bubble.style.alignSelf = "flex-end";
+        bubble.style.borderColor = "var(--border-color)";
+
+        // Generate timestamp structure mapping logic path parameters
+        const now = new Date().toISOString().replace('T', ' ').substring(0, 19);
+
+        bubble.innerHTML = `
+            <div class="meta-tag" style="color: var(--accent-blue);">Compliance_Officer // ${now}</div>
+            <div style="line-height: 1.4;">
+                <span style="color: var(--accent-amber); font-family: var(--font-mono); font-size: 11px;">[Ref: ${selector.value}]</span> ${text}
+            </div>
+        `;
+        
+        container.appendChild(bubble);
+        msgInput.value = "";
+        container.scrollTop = container.scrollHeight; // Cascade history view down
+    }
+</script>
+</body>
+</html>
+g
